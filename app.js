@@ -84,17 +84,35 @@ async function unlockCurrent(){
 function visiblePeople(){return project.people.filter(n=>!project.hiddenPeople.includes(n))}
 function renderPeople(){
   const box=$("personList"); box.innerHTML="";
-  visiblePeople().forEach(name=>{const b=document.createElement("button");b.className="pill";b.textContent=name;b.onclick=()=>{selectedPerson=name;openWorkspace()};box.appendChild(b)});
+  visiblePeople().forEach(name=>{const b=document.createElement("button");b.className="pill";b.textContent=name;
+  b.onclick=()=>{selectedPerson=name;openWorkspace()};box.appendChild(b)});
 }
 function resetEntry(){
   selectedProject="";selectedPerson="";project=null;projectPin="";
   $("newProjectForm").classList.add("hidden"); $("newPersonForm").classList.add("hidden"); status(""); loadProjects();
 }
 function openWorkspace(){ $("entryScreen").classList.remove("active"); $("workspaceScreen").classList.add("active"); renderAll(); }
-async function persist(){
-  status("Saving…");
-  try{const r=await api("/project/"+encodeURIComponent(selectedProject),{method:"PUT",body:JSON.stringify(project)});project=r.project;status("");return true}
-  catch(e){status("Save failed: "+e.message,true);return false}
+async function persist(silent=false){
+  if(!silent) status("Saving…");
+
+  try{
+    const r=await api(
+      "/project/"+encodeURIComponent(selectedProject),
+      {
+        method:"PUT",
+        body:JSON.stringify(project)
+      }
+    );
+
+    project=r.project;
+
+    if(!silent) status("");
+    return true;
+
+  } catch(e){
+    status("Save failed: "+e.message,true);
+    return false;
+  }
 }
 function parseDate(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)}
 function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
@@ -126,8 +144,105 @@ function renderMatrix(){
     const row=document.createElement("div");row.className="matrix-row";row.style.setProperty("--cols",slots.length);
     const dc=document.createElement("div");dc.className="date-cell";dc.textContent=fmtDate(d);row.appendChild(dc);
     const da=document.createElement("div");da.className="day-action";const all=slots.every(t=>isUnavailable(selectedPerson,slotKey(d,t)));
-    const db=document.createElement("button");db.textContent=all?"Available":"Unavailable";db.onclick=async()=>{slots.forEach(t=>setUnavailable(selectedPerson,slotKey(d,t),!all));renderAll();await persist()};da.appendChild(db);row.appendChild(da);
-    slots.forEach(t=>{const k=slotKey(d,t),cell=document.createElement("div");cell.className="slot"+(isUnavailable(selectedPerson,k)?" unavailable":"");const b=document.createElement("button");b.title=`${fmtDate(d)} ${labelTime12(t)}`;b.onclick=async()=>{setUnavailable(selectedPerson,k,!isUnavailable(selectedPerson,k));renderAll();await persist()};cell.appendChild(b);row.appendChild(cell)});
+    const db=document.createElement("button");db.textContent=all?"Available":"Unavailable";
+    db.onclick=async()=>{
+  const newUnavailable = !all;
+
+  slots.forEach(t=>{
+    setUnavailable(
+      selectedPerson,
+      slotKey(d,t),
+      newUnavailable
+    );
+  });
+
+  // Update only this row
+  const slotCells = row.querySelectorAll(".slot");
+
+  slotCells.forEach(cell=>{
+    cell.classList.toggle(
+      "unavailable",
+      newUnavailable
+    );
+  });
+
+  db.textContent =
+    newUnavailable ? "Available" : "Unavailable";
+
+  // Only refresh common availability
+  renderCommon();
+
+  // Save without moving the page
+  await persist(true);
+};
+    da.appendChild(db);row.appendChild(da);
+    slots.forEach(t=>{
+
+  const k = slotKey(d,t);
+
+  const cell =
+    document.createElement("div");
+
+  cell.className =
+    "slot" +
+    (
+      isUnavailable(selectedPerson,k)
+        ? " unavailable"
+        : ""
+    );
+
+  const b =
+    document.createElement("button");
+
+  b.title =
+    `${fmtDate(d)} ${labelTime12(t)}`;
+
+  b.onclick = async () => {
+
+    const newUnavailable =
+      !isUnavailable(
+        selectedPerson,
+        k
+      );
+
+    setUnavailable(
+      selectedPerson,
+      k,
+      newUnavailable
+    );
+
+    // Update only the clicked cell
+    cell.classList.toggle(
+      "unavailable",
+      newUnavailable
+    );
+
+    // Check whether entire day
+    // is now unavailable
+    const dayIsUnavailable =
+      slots.every(t2 =>
+        isUnavailable(
+          selectedPerson,
+          slotKey(d,t2)
+        )
+      );
+
+    // Update DAY button only
+    db.textContent =
+      dayIsUnavailable
+        ? "Available"
+        : "Unavailable";
+
+    // Refresh only common availability
+    renderCommon();
+
+    // Silent background save
+    await persist(true);
+  };
+
+  cell.appendChild(b);
+  row.appendChild(cell);
+});
     body.appendChild(row);
   });
 }
