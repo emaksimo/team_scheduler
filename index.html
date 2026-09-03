@@ -57,9 +57,9 @@
     .feedback-name{font-size:12px;font-weight:800;color:var(--text)}
     .feedback-time{font-size:10px;color:var(--muted)}
     .feedback-actions{margin-left:auto;display:flex;align-items:center}
-    .feedback-delete{width:30px;height:30px;padding:5px;border:0;background:transparent;color:#8b3030;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;opacity:.65}
+    .feedback-delete{width:32px;height:32px;padding:6px;border:0;background:transparent;color:#8b3030;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;opacity:.9;cursor:pointer;flex:0 0 32px}
     .feedback-delete:hover{background:#f8eeee;opacity:1}
-    .feedback-delete svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .feedback-delete svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .feedback-message{font-size:12px;line-height:1.5;color:#454c48;white-space:pre-wrap;overflow-wrap:anywhere}
     .feedback-form{padding:14px 16px 16px;border-top:1px solid var(--line);display:grid;grid-template-columns:150px 1fr auto;gap:8px;align-items:end}
     .feedback-field{display:flex;flex-direction:column;gap:5px}
@@ -405,6 +405,6 @@
     if(!open && typeof loadFeedback === "function") loadFeedback();
   }));
 </script>
-<script src="app.js?v=20260903-7"></script>
+<script src="app.js?v=20260903-8"></script>
 </body>
 </html>
