@@ -627,14 +627,58 @@ function renderFeedback(messages){
     const time=document.createElement("span");
     time.className="feedback-time";
     time.textContent=formatFeedbackDate(item.createdAt);
+    const actions=document.createElement("div");
+    actions.className="feedback-actions";
+    const deleteBtn=document.createElement("button");
+    deleteBtn.type="button";
+    deleteBtn.className="feedback-delete";
+    deleteBtn.setAttribute("aria-label",`Delete message from ${item.name||"Anonymous"}`);
+    deleteBtn.title="Delete message";
+    deleteBtn.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 10v6M14 10v6"/></svg>';
+    deleteBtn.addEventListener("click",()=>deleteFeedbackMessage(item));
+    actions.appendChild(deleteBtn);
     const msg=document.createElement("div");
     msg.className="feedback-message";
     msg.textContent=item.message||"";
-    meta.append(name,time);
+    meta.append(name,time,actions);
     row.append(meta,msg);
     list.appendChild(row);
   });
   list.scrollTop=list.scrollHeight;
+}
+
+
+let feedbackAdminPin = "";
+
+async function deleteFeedbackMessage(item){
+  if(!item?.id)return;
+  const label=item.name?`Delete ${item.name}'s message?`:'Delete this message?';
+  if(!window.confirm(label+" This cannot be undone."))return;
+
+  if(!feedbackAdminPin){
+    const entered=window.prompt("Admin PIN/password for deleting feedback messages:");
+    if(entered===null)return;
+    feedbackAdminPin=entered.trim();
+    if(!feedbackAdminPin){feedbackStatus("Admin PIN/password is required to delete messages.",true);return}
+  }
+
+  feedbackStatus("Deleting…");
+  try{
+    const r=await fetch(`${API_URL}/feedback/${encodeURIComponent(item.id)}`,{
+      method:"DELETE",
+      headers:{"X-Feedback-Admin":feedbackAdminPin}
+    });
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok){
+      if(r.status===401||r.status===403)feedbackAdminPin="";
+      throw new Error(data.error||`HTTP ${r.status}`);
+    }
+    feedbackLoaded=false;
+    await loadFeedback(true);
+    feedbackStatus("Message deleted.");
+  }catch(e){
+    feedbackStatus("Could not delete: "+e.message,true);
+  }
 }
 
 async function loadFeedback(force=false){
