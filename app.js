@@ -1,4 +1,4 @@
-const API_URL = "https://team-scheduler-api.maksimovich-elena.workers.dev";
+const API_URL = "https://team-scheduler-api.everloop.workers.dev";
 let projects = [];
 let project = null;
 let selectedProject = "";
