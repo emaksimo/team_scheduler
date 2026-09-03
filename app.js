@@ -223,7 +223,6 @@ function selectProject(name,initialized,updateUrl=true){
   // Password is deliberately never restored or auto-submitted.
   // A direct meeting link still always requires the PIN.
   $("projectPin").value="";
-  $("pinTitle").textContent=initialized?"Enter meeting PIN":"Set meeting PIN";
   $("pinHelp").textContent=initialized?"Enter the 4-digit PIN for this meeting.":"This meeting is not initialized yet. Choose its 4-digit PIN.";
   $("unlockBtn").textContent="Continue";
   $("unlockBtn").dataset.initialized=initialized?"1":"0";

@@ -33,7 +33,7 @@
     .video-link:hover{text-decoration:underline;background:transparent}
     .youtube-icon{width:23px;height:16px;border-radius:4px;background:#e74c3c;position:relative;display:inline-block}
     .youtube-icon:after{content:"";position:absolute;left:9px;top:4px;border-left:7px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent}
-    .entry-flow{border-top:1px solid var(--line);padding-top:24px}
+    .entry-flow{border-top:0;padding-top:12px}
     .meeting-start{text-align:center;margin-bottom:34px}
     .meeting-start .primary{font-size:22.5px;font-weight:800;padding:16px 27px;border-radius:7px;background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8;min-width:318px}
     #unlockBtn{background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8}
@@ -41,11 +41,11 @@
     .existing-meeting-open{display:flex;width:318px;max-width:100%;margin:0 auto 12px;gap:8px}.existing-meeting-open input{flex:1;min-width:0;height:44px;padding:11px 13px;font-size:14px}.existing-meeting-open button{height:44px;white-space:nowrap}.existing-meetings{margin-top:0}.existing-meetings-title{text-align:center;font-size:13px;font-weight:400;color:var(--text);margin-bottom:14px}
     .existing-meetings .muted{text-align:center;font-size:12px}
     .footer-shell{max-width:920px;margin:8px auto;text-align:center}.footer-toggle{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;color:var(--text);font-size:13px;line-height:1;padding:4px 0;cursor:pointer;font-weight:400;height:24px}.footer-toggle:hover{background:transparent;text-decoration:underline}.footer-arrow{width:28px;height:18px;display:block;flex:0 0 28px;transform-origin:50% 50%;transition:transform .15s ease}.footer-arrow path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.footer-toggle[aria-expanded="true"] .footer-arrow{transform:rotate(180deg)}
-    .welcome-bottom-tools{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:22px;min-height:34px}.app-footer{margin:8px auto 0;padding:18px 22px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.55;text-align:center}.app-footer.hidden{display:none!important}
+    .welcome-bottom-tools{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:22px;min-height:34px}.app-footer{margin:4px auto 0;padding:9px 22px;border-top:0;color:var(--muted);font-size:12px;line-height:1.55;text-align:center}.app-footer.hidden{display:none!important}
     .app-footer a{color:#017e94;font-weight:700;text-decoration:none}.app-footer a:hover{text-decoration:underline}
-    .license-line{margin-top:8px;color:#5f6662}.privacy-line{margin-top:8px;color:#5f6662;font-weight:700}.footer-owner{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center}.linkedin-link,.email-link{display:inline-flex;align-items:center;gap:5px;color:#017e94!important}.linkedin-logo{width:18px;height:18px;display:block}.email-icon{width:18px;height:18px;display:block;flex:0 0 18px;stroke:#017e94;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.linkedin-link:hover,.email-link:hover{text-decoration:underline;opacity:.9}
+    .license-line{margin-top:4px;color:#5f6662}.privacy-line{margin-top:4px;color:#5f6662;font-weight:400}.footer-owner{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center}.linkedin-link,.email-link{display:inline-flex;align-items:center;gap:5px;color:#017e94!important}.linkedin-logo{width:18px;height:18px;display:block}.email-icon{width:18px;height:18px;display:block;flex:0 0 18px;stroke:#017e94;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.linkedin-link:hover,.email-link:hover{text-decoration:underline;opacity:.9}
     .footer-note{margin-top:5px;font-size:11px;color:#858b87}
-    .feedback-panel{max-width:720px;margin:18px auto 16px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+    .feedback-panel{max-width:720px;margin:9px auto 8px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
     .feedback-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
     .feedback-title{font-size:15px;font-weight:800;color:var(--text)}
     .feedback-sub{font-size:11px;color:var(--muted);margin-top:3px}
@@ -223,8 +223,6 @@
           </div>
 
           <div id="pinStep" class="hidden">
-            <div class="divider"></div>
-            <h2 id="pinTitle">Enter meeting PIN</h2>
             <div id="pinHelp" class="muted" style="font-size:13px;margin-top:5px">Enter the 4-digit PIN for this meeting.</div>
             <div class="row" style="margin-top:12px">
               <input id="projectPin" type="password" inputmode="numeric" maxlength="4" placeholder="4-digit PIN" autocomplete="off" style="width:150px">
