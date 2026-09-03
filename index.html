@@ -205,6 +205,8 @@
           <h1 id="workspaceTitle" class="workspace-title"></h1>
           <span id="identityBadge" class="identity-badge"></span>
         </div>
+        <!-- Kept as a hidden compatibility target for older cached app.js versions. -->
+        <div id="workspaceSub" class="workspace-sub hidden" aria-hidden="true"></div>
       </div>
       <div class="row">
         <button id="settingsBtn" class="secondary">Meeting settings</button>
@@ -323,6 +325,6 @@
     appFooter.classList.toggle("hidden", open);
   }));
 </script>
-<script src="app.js?v=20260903-4"></script>
+<script src="app.js?v=20260903-5"></script>
 </body>
 </html>
