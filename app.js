@@ -16,6 +16,21 @@ function status(msg, error=false){
   el.style.color=error?"#8b3030":"";
 }
 
+
+function setWelcomeVisible(visible){
+  const hero=$("welcomeHero");
+  const tools=$("welcomeBottomTools");
+  const footer=$("appFooter");
+  const toggle=$("footerToggle");
+  if(hero) hero.classList.toggle("hidden",!visible);
+  if(tools) tools.classList.toggle("hidden",!visible);
+  if(!visible && footer) footer.classList.add("hidden");
+  if(!visible && toggle){
+    toggle.setAttribute("aria-expanded","false");
+    toggle.setAttribute("aria-label","Show information");
+  }
+}
+
 function meetingSlug(name){
   return String(name||"")
     .normalize("NFD")
@@ -24,6 +39,43 @@ function meetingSlug(name){
     .trim()
     .replace(/[^a-z0-9]+/g,"-")
     .replace(/^-+|-+$/g,"");
+}
+
+
+function findMeetingByInput(value){
+  const wanted=meetingSlug(value);
+  if(!wanted)return {match:null,matches:[]};
+
+  const exact=projects.find(p=>meetingSlug(p.name)===wanted);
+  if(exact)return {match:exact,matches:[exact]};
+
+  const prefix=projects.filter(p=>meetingSlug(p.name).startsWith(wanted));
+  if(prefix.length===1)return {match:prefix[0],matches:prefix};
+  if(prefix.length>1)return {match:null,matches:prefix};
+
+  const contains=projects.filter(p=>meetingSlug(p.name).includes(wanted));
+  if(contains.length===1)return {match:contains[0],matches:contains};
+  return {match:null,matches:contains};
+}
+
+function openMeetingFromInput(){
+  const input=$("meetingIdInput");
+  if(!input)return;
+  const value=input.value.trim();
+  if(!value){status("Enter a meeting ID or part of the meeting name.",true);return;}
+
+  const result=findMeetingByInput(value);
+  if(result.match){
+    status("");
+    selectProject(result.match.name,result.match.initialized,true);
+    return;
+  }
+
+  if(result.matches.length>1){
+    status(`Several meetings match “${value}”. Type a little more of the meeting name.`,true);
+  }else{
+    status(`No meeting found for “${value}”.`,true);
+  }
 }
 
 function requestedMeeting(){
@@ -109,6 +161,7 @@ async function loadProjects(){
 }
 
 function renderEntry(showMeetingList=true){
+  setWelcomeVisible(showMeetingList);
   $("entryScreen").classList.add("active");
   $("workspaceScreen").classList.remove("active");
   $("projectStep").classList.toggle("hidden",!showMeetingList);
@@ -127,6 +180,7 @@ function renderEntry(showMeetingList=true){
 }
 
 function selectProject(name,initialized,updateUrl=true){
+  setWelcomeVisible(false);
   selectedProject=name;
   selectedPerson="";
   project=null;
@@ -200,6 +254,7 @@ function resetEntry(){
 }
 
 function openWorkspace(){
+  setWelcomeVisible(false);
   $("entryScreen").classList.remove("active");
   $("workspaceScreen").classList.add("active");
   renderAll();
@@ -387,8 +442,14 @@ function renderManagePeople(){
 
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
 
-$("newProjectBtn").onclick=()=>$("newProjectForm").classList.remove("hidden");
-$("cancelProjectBtn").onclick=()=>$("newProjectForm").classList.add("hidden");
+
+const meetingIdInput=$("meetingIdInput");
+const openMeetingIdBtn=$("openMeetingIdBtn");
+if(openMeetingIdBtn) openMeetingIdBtn.onclick=openMeetingFromInput;
+if(meetingIdInput) meetingIdInput.addEventListener("keydown",e=>{if(e.key==="Enter")openMeetingFromInput()});
+
+$("newProjectBtn").onclick=()=>{setWelcomeVisible(false);$("newProjectForm").classList.remove("hidden")};
+$("cancelProjectBtn").onclick=()=>{$("newProjectForm").classList.add("hidden");setWelcomeVisible(true)};
 $("createProjectBtn").onclick=async()=>{
   const name=$("newProject").value.trim(),pin=$("newProjectPin").value.trim();
   if(!name){status("Enter a meeting name.",true);return}

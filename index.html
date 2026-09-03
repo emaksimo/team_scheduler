@@ -21,23 +21,25 @@
     .welcome{text-align:center;max-width:700px;margin:0 auto 26px}
     .welcome-kicker{font-size:11px;font-weight:850;letter-spacing:.11em;text-transform:uppercase;color:#5b6f8a}
     .welcome h1{font-size:34px;line-height:1.12;margin:8px 0 10px}
-    .welcome-copy{min-height:42px;margin:0 auto}
-    .welcome-demo{display:flex;justify-content:center;margin:18px 0 10px}
-    .welcome-demo img{width:150px;max-width:100%;height:auto;border-radius:10px;border:1px solid var(--line);box-shadow:0 8px 22px rgba(40,48,42,.06);opacity:.97}
+    .welcome-copy{min-height:26px;margin:0 auto}
+    .welcome-visuals{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px auto 18px;max-width:680px}
+    .welcome-visuals img{width:100%;height:auto;display:block;border-radius:12px}
+    @media(max-width:700px){.welcome-visuals{grid-template-columns:1fr;max-width:420px}}
     .benefits{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:18px 0 14px}
     .benefit{background:transparent;border:0;border-radius:0;padding:0;font-size:12px;font-weight:800}
     .benefit.available{color:#017e94}
     .benefit.unavailable{color:#017e94}
-    .video-link{display:inline-flex;align-items:center;gap:8px;color:var(--text);text-decoration:none;font-size:13px;font-weight:800;padding:4px 0;border:0;background:transparent}
+    .video-link{display:inline-flex;align-items:center;gap:8px;color:var(--text);text-decoration:none;font-size:13px;font-weight:400;padding:4px 0;border:0;background:transparent}
     .video-link:hover{text-decoration:underline;background:transparent}
     .youtube-icon{width:23px;height:16px;border-radius:4px;background:#e74c3c;position:relative;display:inline-block}
     .youtube-icon:after{content:"";position:absolute;left:9px;top:4px;border-left:7px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent}
     .entry-flow{border-top:1px solid var(--line);padding-top:24px}
     .meeting-start{text-align:center;margin-bottom:34px}
-    .meeting-start .primary{font-size:22.5px;font-weight:800;padding:16px 27px;border-radius:7px;background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8}
-    .existing-meetings{margin-top:0}.existing-meetings-title{text-align:center;font-size:13px;font-weight:800;color:var(--text);margin-bottom:14px}
+    .meeting-start .primary{font-size:22.5px;font-weight:800;padding:16px 27px;border-radius:7px;background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8;min-width:318px}
+    .existing-meeting-open{display:flex;width:318px;max-width:100%;margin:0 auto 12px;gap:8px}.existing-meeting-open input{flex:1;min-width:0;height:44px;padding:11px 13px;font-size:14px}.existing-meeting-open button{height:44px;white-space:nowrap}.existing-meetings{margin-top:0}.existing-meetings-title{text-align:center;font-size:13px;font-weight:800;color:var(--text);margin-bottom:14px}
     .existing-meetings .muted{text-align:center;font-size:12px}
-    .footer-shell{max-width:920px;margin:18px auto 8px;text-align:center}.footer-toggle{border:0;background:transparent;color:#5b6f8a;font-size:20px;line-height:1;padding:6px 12px;cursor:pointer}.footer-toggle:hover{background:transparent}.footer-toggle[aria-expanded="true"]{transform:rotate(180deg)}.app-footer{margin:8px auto 0;padding:18px 22px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.55;text-align:center}.app-footer.hidden{display:none!important}
+    .footer-shell{max-width:920px;margin:8px auto;text-align:center}.footer-toggle{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;color:var(--text);font-size:13px;line-height:1;padding:4px 0;cursor:pointer;font-weight:400;height:24px}.footer-toggle:hover{background:transparent;text-decoration:underline}.footer-arrow{width:28px;height:18px;display:block;flex:0 0 28px;transform-origin:50% 50%;transition:transform .15s ease}.footer-arrow path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.footer-toggle[aria-expanded="true"] .footer-arrow{transform:rotate(180deg)}
+    .welcome-bottom-tools{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:22px;min-height:34px}.app-footer{margin:8px auto 0;padding:18px 22px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;line-height:1.55;text-align:center}.app-footer.hidden{display:none!important}
     .app-footer a{color:var(--green);font-weight:800;text-decoration:none}.app-footer a:hover{text-decoration:underline}
     .license-line{margin-top:8px;color:#5f6662}.privacy-line{margin-top:8px;color:#5f6662;font-weight:700}.footer-owner{display:inline-flex;align-items:center;gap:6px}.linkedin-icon{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:3px;background:#0a66c2;color:#fff;font-size:12px;font-weight:900;text-decoration:none;vertical-align:-3px}.linkedin-icon:hover{text-decoration:none;opacity:.88}
     .footer-note{margin-top:5px;font-size:11px;color:#858b87}
@@ -52,6 +54,7 @@
     .hidden{display:none!important}
     .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
     .project-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .project-list-placeholder{visibility:hidden;min-height:70px;pointer-events:none;user-select:none}
     .project-card{min-width:170px;flex:0 1 220px;min-height:70px;text-align:left;border-radius:14px;padding:12px}
     .pill{border-radius:999px;font-size:13px}
     .divider{height:1px;background:var(--line);margin:18px 0}
@@ -101,18 +104,19 @@
   <section id="entryScreen" class="screen active">
     <div class="entry-shell">
       <div class="entry card">
-        <div class="welcome">
+        <div id="welcomeHero" class="welcome">
           <div class="welcome-kicker">Team Scheduler</div>
           <h1>Make scheduling easy — find a time that works for everyone.</h1>
           <div class="welcome-copy" aria-hidden="true"></div>
+          <div class="welcome-visuals" aria-label="How Team Scheduler helps">
+            <img src="assets/calendars.svg" alt="Five people using different calendars">
+            <img src="assets/common_time.svg" alt="Team Scheduler identifies a common time for everyone">
+          </div>
           <div class="benefits">
             <span class="benefit available">No registration</span>
             <span class="benefit unavailable">No email required</span>
             <span class="benefit available">One link per meeting</span>
             <span class="benefit unavailable">Free, secure and without any cookies</span>
-          </div>
-          <div class="welcome-demo">
-            <img src="assets/team_scheduler_5sec.gif" alt="Five people using different calendars before finding a common meeting time">
           </div>
 
         </div>
@@ -130,11 +134,11 @@
             </div>
             <div class="existing-meetings">
               <div class="existing-meetings-title">Open an existing meeting</div>
-              <div class="row" style="justify-content:center;margin-bottom:12px">
-                <input id="meetingIdInput" placeholder="Meeting ID" autocomplete="off" style="width:min(420px,100%);height:44px;padding:11px 13px;font-size:14px">
+              <div class="existing-meeting-open">
+                <input id="meetingIdInput" placeholder="Meeting ID" autocomplete="off">
                 <button id="openMeetingIdBtn">Open meeting</button>
               </div>
-              <div id="projectList" class="project-row" style="justify-content:center"></div>
+              <div id="projectList" class="project-row project-list-placeholder" style="justify-content:center" aria-hidden="true"></div>
             </div>
           </div>
 
@@ -171,11 +175,12 @@
             </div>
           </div>
         </div>
-        <div style="text-align:center;margin-top:22px">
+        <div id="welcomeBottomTools" class="welcome-bottom-tools">
           <a class="video-link" href="https://youtu.be/PU6CVuurONI" target="_blank" rel="noopener noreferrer">
             <span class="youtube-icon" aria-hidden="true"></span>
             <span>How does it work?</span>
           </a>
+          <button id="footerToggle" class="footer-toggle" type="button" aria-expanded="false" aria-controls="appFooter" aria-label="Show feedback and questions"><svg class="footer-arrow" viewBox="0 0 28 18" aria-hidden="true" focusable="false"><path d="M4 5.5 L14 14 L24 5.5"/></svg><span>Feedback &amp; questions</span></button>
         </div>
       </div>
     </div>
@@ -272,7 +277,6 @@
   </section>
 
   <div class="footer-shell">
-    <button id="footerToggle" class="footer-toggle" type="button" aria-expanded="false" aria-controls="appFooter" aria-label="Show information">⌄</button>
     <footer id="appFooter" class="app-footer hidden">
       <div>
         <strong>Feedback &amp; questions:</strong>

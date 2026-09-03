@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 250" role="img" aria-labelledby="t d">
+<title id="t">Five people, different calendars</title><desc id="d">Five teammates use different calendar tools, making scheduling fragmented.</desc>
+<rect width="420" height="250" rx="18" fill="#ffffff" stroke="#dde3de"/>
+<text x="24" y="34" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#252b28">5 people, 5 different calendars</text>
+<g font-family="Arial, sans-serif" font-size="15" fill="#252b28">
+  <circle cx="42" cy="70" r="14" fill="#d8e6dc"/><text x="68" y="75">Nico</text>
+  <circle cx="42" cy="106" r="14" fill="#f0d8cf"/><text x="68" y="111">Elena</text>
+  <circle cx="42" cy="142" r="14" fill="#dce6f2"/><text x="68" y="147">Max</text>
+  <circle cx="42" cy="178" r="14" fill="#f3e6c9"/><text x="68" y="183">Sarah</text>
+  <circle cx="42" cy="214" r="14" fill="#e2d7e8"/><text x="68" y="219">David</text>
+</g>
+<!-- Microsoft-like 4-square marks -->
+<g transform="translate(260 57)"><rect width="15" height="15" fill="#f25022"/><rect x="18" width="15" height="15" fill="#7fba00"/><rect y="18" width="15" height="15" fill="#00a4ef"/><rect x="18" y="18" width="15" height="15" fill="#ffb900"/></g>
+<g transform="translate(260 165)"><rect width="15" height="15" fill="#f25022"/><rect x="18" width="15" height="15" fill="#7fba00"/><rect y="18" width="15" height="15" fill="#00a4ef"/><rect x="18" y="18" width="15" height="15" fill="#ffb900"/></g>
+<!-- Google calendar-like marks -->
+<g transform="translate(260 93)"><rect width="34" height="34" rx="5" fill="#ffffff" stroke="#4285f4" stroke-width="4"/><rect width="34" height="9" rx="3" fill="#4285f4"/><text x="7" y="27" font-family="Arial" font-size="15" font-weight="700" fill="#4285f4">31</text></g>
+<g transform="translate(260 201)"><rect width="34" height="34" rx="5" fill="#ffffff" stroke="#4285f4" stroke-width="4"/><rect width="34" height="9" rx="3" fill="#4285f4"/><text x="7" y="27" font-family="Arial" font-size="15" font-weight="700" fill="#4285f4">31</text></g>
+<!-- Calendly-like mark -->
+<g transform="translate(260 129)"><circle cx="17" cy="17" r="15" fill="none" stroke="#1976d2" stroke-width="4"/><path d="M26 8c-10-4-20 2-20 11 0 8 9 13 18 9" fill="none" stroke="#1976d2" stroke-width="4" stroke-linecap="round"/></g>
+<g fill="none" stroke-width="2" stroke-dasharray="5 5">
+  <path d="M305 72 C355 72 365 95 390 95" stroke="#e4b96f"/><path d="M305 108 C350 108 360 126 392 126" stroke="#e07a5f"/>
+  <path d="M305 144 C350 144 362 144 392 144" stroke="#5b9bd5"/><path d="M305 180 C350 180 360 162 392 162" stroke="#75a95f"/>
+  <path d="M305 216 C350 216 365 190 392 190" stroke="#8aa0bf"/>
+</g>
+</svg>
