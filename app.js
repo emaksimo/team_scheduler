@@ -43,19 +43,40 @@ function meetingSlug(name){
 
 
 function findMeetingByInput(value){
-  const wanted=meetingSlug(value);
+  const raw=String(value||"").trim();
+  const wanted=meetingSlug(raw);
   if(!wanted)return {match:null,matches:[]};
 
-  const exact=projects.find(p=>meetingSlug(p.name)===wanted);
-  if(exact)return {match:exact,matches:[exact]};
+  // Search by meeting name, slug or exact meeting ID. Name matching is
+  // intentionally forgiving: typing "BIG" finds "BIG 12".
+  const rows=projects.map(p=>({
+    project:p,
+    nameSlug:meetingSlug(p.name),
+    id:String(p.id||"").trim().toLowerCase(),
+    explicitSlug:meetingSlug(p.slug||"")
+  }));
 
-  const prefix=projects.filter(p=>meetingSlug(p.name).startsWith(wanted));
-  if(prefix.length===1)return {match:prefix[0],matches:prefix};
-  if(prefix.length>1)return {match:null,matches:prefix};
+  const exact=rows.filter(x=>
+    x.nameSlug===wanted ||
+    x.explicitSlug===wanted ||
+    (x.id && x.id===raw.toLowerCase())
+  );
+  if(exact.length===1)return {match:exact[0].project,matches:[exact[0].project]};
+  if(exact.length>1)return {match:null,matches:exact.map(x=>x.project)};
 
-  const contains=projects.filter(p=>meetingSlug(p.name).includes(wanted));
-  if(contains.length===1)return {match:contains[0],matches:contains};
-  return {match:null,matches:contains};
+  const prefix=rows.filter(x=>
+    x.nameSlug.startsWith(wanted) ||
+    (x.explicitSlug && x.explicitSlug.startsWith(wanted))
+  );
+  if(prefix.length===1)return {match:prefix[0].project,matches:[prefix[0].project]};
+  if(prefix.length>1)return {match:null,matches:prefix.map(x=>x.project)};
+
+  const contains=rows.filter(x=>
+    x.nameSlug.includes(wanted) ||
+    (x.explicitSlug && x.explicitSlug.includes(wanted))
+  );
+  if(contains.length===1)return {match:contains[0].project,matches:[contains[0].project]};
+  return {match:null,matches:contains.map(x=>x.project)};
 }
 
 function openMeetingFromInput(){
@@ -139,7 +160,12 @@ async function api(path,options={}){
 async function loadProjects(){
   status("Loading meetings…");
   try{
-    projects=await api("/projects");
+    const projectResponse=await api("/projects");
+    projects=Array.isArray(projectResponse)
+      ? projectResponse
+      : Array.isArray(projectResponse?.projects)
+        ? projectResponse.projects
+        : [];
     status("");
 
     const requested=requestedMeeting();
