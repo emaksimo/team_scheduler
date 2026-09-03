@@ -322,7 +322,6 @@ function renderAll(){
   if(!selectedPerson){resetEntry();return}
   $("workspaceTitle").textContent=project.name;
   $("identityBadge").textContent=selectedPerson;
-  $("workspaceSub").textContent=`Time zone: ${project.timezone}`;
   $("availabilityMeta").textContent=`HOURS → ${labelTime12(mins(project.dayStart))}–${labelTime12(mins(project.dayEnd))} · ${project.slotMinutes} min slots · Time zone: ${project.timezone}`;
   const sel=$("workspacePerson");
   sel.innerHTML="";
@@ -337,7 +336,38 @@ function renderMatrix(){
   head.style.setProperty("--cols",slots.length);
   head.innerHTML="";
   body.innerHTML="";
-  ["DATE","DAY",...slots.map(labelTime12)].forEach(x=>{const d=document.createElement("div");d.textContent=x;head.appendChild(d)});
+
+  const dateHead=document.createElement("div");
+  dateHead.textContent="DATE";
+  head.appendChild(dateHead);
+
+  const dayHead=document.createElement("div");
+  dayHead.textContent="DAY";
+  head.appendChild(dayHead);
+
+  slots.forEach(t=>{
+    const h=document.createElement("div");
+    const hb=document.createElement("button");
+    hb.type="button";
+    hb.className="time-head-btn";
+    hb.textContent=labelTime12(t);
+    const columnAllUnavailable=()=>dates.length>0&&dates.every(d=>isUnavailable(selectedPerson,slotKey(d,t)));
+    const updateTitle=()=>{
+      hb.title=columnAllUnavailable()
+        ? `Click to make ${labelTime12(t)} available for all days`
+        : `Click to make ${labelTime12(t)} unavailable for all days`;
+    };
+    updateTitle();
+    hb.onclick=async()=>{
+      const makeUnavailable=!columnAllUnavailable();
+      dates.forEach(d=>setUnavailable(selectedPerson,slotKey(d,t),makeUnavailable));
+      renderMatrix();
+      renderCommon();
+      await persist(true);
+    };
+    h.appendChild(hb);
+    head.appendChild(h);
+  });
 
   dates.forEach(d=>{
     const row=document.createElement("div");
@@ -353,12 +383,12 @@ function renderMatrix(){
     da.className="day-action";
     const all=slots.every(t=>isUnavailable(selectedPerson,slotKey(d,t)));
     const db=document.createElement("button");
-    db.textContent=all?"Available":"Unavailable";
+    db.textContent=all?"Make available":"Make unavailable";
     db.onclick=async()=>{
       const newUnavailable=!slots.every(t=>isUnavailable(selectedPerson,slotKey(d,t)));
       slots.forEach(t=>setUnavailable(selectedPerson,slotKey(d,t),newUnavailable));
       row.querySelectorAll(".slot").forEach(cell=>cell.classList.toggle("unavailable",newUnavailable));
-      db.textContent=newUnavailable?"Available":"Unavailable";
+      db.textContent=newUnavailable?"Make available":"Make unavailable";
       renderCommon();
       await persist(true);
     };
@@ -370,13 +400,13 @@ function renderMatrix(){
       const cell=document.createElement("div");
       cell.className="slot"+(isUnavailable(selectedPerson,k)?" unavailable":"");
       const b=document.createElement("button");
-      b.title=`${fmtDate(d)} ${labelTime12(t)}`;
+      b.title=`${fmtDate(d)} ${labelTime12(t)} — click to ${isUnavailable(selectedPerson,k)?"make available":"make unavailable"}`;
       b.onclick=async()=>{
         const newUnavailable=!isUnavailable(selectedPerson,k);
         setUnavailable(selectedPerson,k,newUnavailable);
         cell.classList.toggle("unavailable",newUnavailable);
         const dayIsUnavailable=slots.every(t2=>isUnavailable(selectedPerson,slotKey(d,t2)));
-        db.textContent=dayIsUnavailable?"Available":"Unavailable";
+        db.textContent=dayIsUnavailable?"Make available":"Make unavailable";
         renderCommon();
         await persist(true);
       };
