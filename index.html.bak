@@ -36,8 +36,6 @@
     .entry-flow{border-top:1px solid var(--line);padding-top:24px}
     .meeting-start{text-align:center;margin-bottom:34px}
     .meeting-start .primary{font-size:22.5px;font-weight:800;padding:16px 27px;border-radius:7px;background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8;min-width:318px}
-    #unlockBtn{background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8}
-    #unlockBtn:hover{background:#50627b;border-color:#50627b}
     .existing-meeting-open{display:flex;width:318px;max-width:100%;margin:0 auto 12px;gap:8px}.existing-meeting-open input{flex:1;min-width:0;height:44px;padding:11px 13px;font-size:14px}.existing-meeting-open button{height:44px;white-space:nowrap}.existing-meetings{margin-top:0}.existing-meetings-title{text-align:center;font-size:13px;font-weight:400;color:var(--text);margin-bottom:14px}
     .existing-meetings .muted{text-align:center;font-size:12px}
     .footer-shell{max-width:920px;margin:8px auto;text-align:center}.footer-toggle{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;color:var(--text);font-size:13px;line-height:1;padding:4px 0;cursor:pointer;font-weight:400;height:24px}.footer-toggle:hover{background:transparent;text-decoration:underline}.footer-arrow{width:28px;height:18px;display:block;flex:0 0 28px;transform-origin:50% 50%;transition:transform .15s ease}.footer-arrow path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.footer-toggle[aria-expanded="true"] .footer-arrow{transform:rotate(180deg)}
@@ -45,26 +43,6 @@
     .app-footer a{color:#017e94;font-weight:700;text-decoration:none}.app-footer a:hover{text-decoration:underline}
     .license-line{margin-top:8px;color:#5f6662}.privacy-line{margin-top:8px;color:#5f6662;font-weight:700}.footer-owner{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center}.linkedin-link,.email-link{display:inline-flex;align-items:center;gap:5px;color:#017e94!important}.linkedin-logo{width:18px;height:18px;display:block}.email-icon{width:18px;height:18px;display:block;flex:0 0 18px;stroke:#017e94;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.linkedin-link:hover,.email-link:hover{text-decoration:underline;opacity:.9}
     .footer-note{margin-top:5px;font-size:11px;color:#858b87}
-    .feedback-panel{max-width:720px;margin:18px auto 16px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
-    .feedback-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
-    .feedback-title{font-size:15px;font-weight:800;color:var(--text)}
-    .feedback-sub{font-size:11px;color:var(--muted);margin-top:3px}
-    .feedback-list{max-height:300px;overflow:auto;padding:4px 16px}
-    .feedback-empty{padding:22px 0;color:var(--muted);font-size:12px;text-align:center}
-    .feedback-item{padding:12px 0;border-bottom:1px solid #eef1ef}
-    .feedback-item:last-child{border-bottom:0}
-    .feedback-meta{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
-    .feedback-name{font-size:12px;font-weight:800;color:var(--text)}
-    .feedback-time{font-size:10px;color:var(--muted)}
-    .feedback-message{font-size:12px;line-height:1.5;color:#454c48;white-space:pre-wrap;overflow-wrap:anywhere}
-    .feedback-form{padding:14px 16px 16px;border-top:1px solid var(--line);display:grid;grid-template-columns:150px 1fr auto;gap:8px;align-items:end}
-    .feedback-field{display:flex;flex-direction:column;gap:5px}
-    .feedback-field label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-    .feedback-field input,.feedback-field textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:#fff;color:var(--text);resize:vertical}
-    .feedback-field textarea{min-height:64px;max-height:150px}
-    .feedback-send{background:#5b6f8a!important;border-color:#5b6f8a!important;color:#e2ded8!important;height:38px;min-width:76px}
-    .feedback-status{padding:0 16px 12px;font-size:11px;color:var(--muted);min-height:14px}
-    @media(max-width:720px){.feedback-form{grid-template-columns:1fr}.feedback-send{width:100%}}
     h1,h2,h3{margin:0}
     button,input,select{font:inherit}
     button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 12px;cursor:pointer}
@@ -87,18 +65,6 @@
     .workspace-sub{font-size:12px;color:var(--muted);margin-top:5px}
     .main-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:12px;align-items:start;width:100%}
     .panel-head{padding:11px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .availability-head-copy{display:flex;flex-direction:column;gap:10px}
-    .availability-head-copy>.my-availability-title{font-size:14px;font-weight:800}
-    .availability-head-copy .legend-inline{margin:0}
-    .availability-head-copy #availabilityMeta{margin:0!important;line-height:1.5}
-    .common-card .panel-head{padding:16px 14px 14px;align-items:flex-start}
-    .common-card-head{display:flex;flex-direction:column;gap:12px;width:100%;align-items:center;text-align:center}
-    .common-card-icon{width:51px;height:51px;display:block;filter:none;margin:0 auto 2px}
-    .common-card-icon path{fill:#5b6f8a}
-    .common-card-title{font-size:25px;font-weight:800;line-height:1.15;color:#5b6f8a;text-align:center}
-    .common-card-sub{font-size:18px;line-height:1.5;color:var(--muted);text-align:left;width:100%}
-    .common-card .common-table th,.common-card .common-table td{padding-top:14px;padding-bottom:14px;line-height:1.5;font-size:16.5px}
-    .retention-note{margin:0 0 14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:12px;font-weight:700;background:#fafbfa}
     .matrix-wrap{overflow:hidden}
     .matrix{width:100%;min-width:0}
     .matrix-head,.matrix-row{display:grid;grid-template-columns:82px 104px repeat(var(--cols),minmax(0,1fr))}
@@ -188,8 +154,8 @@
             </div>
           </div>
 
-          <div id="selectedProjectBar" class="hidden row" style="justify-content:space-between;padding:4px 0">
-            <div><strong id="selectedProjectName" style="font-size:24px;line-height:1.2"></strong></div>
+          <div id="selectedProjectBar" class="hidden row" style="justify-content:space-between;background:var(--green-soft);padding:9px 11px;border-radius:10px">
+            <div style="font-size:13px"><span class="muted">Meeting:</span> <strong id="selectedProjectName"></strong></div>
             <div class="row">
               <button id="copyMeetingLinkBtn" style="padding:6px 9px;font-size:11px">Copy meeting link</button>
               <button id="changeProjectBtn" style="padding:6px 9px;font-size:11px">Change meeting</button>
@@ -198,7 +164,8 @@
 
           <div id="pinStep" class="hidden">
             <div class="divider"></div>
-            <h2 id="pinTitle">Enter meeting PIN</h2>
+            <div class="step-label" style="color:var(--violet)">Meeting access</div>
+            <h2 id="pinTitle" style="margin-top:5px">Enter meeting PIN</h2>
             <div id="pinHelp" class="muted" style="font-size:13px;margin-top:5px">Enter the 4-digit PIN for this meeting.</div>
             <div class="row" style="margin-top:12px">
               <input id="projectPin" type="password" inputmode="numeric" maxlength="4" placeholder="4-digit PIN" autocomplete="off" style="width:150px">
@@ -288,13 +255,13 @@
     <div class="main-grid">
       <section class="card">
         <div class="panel-head">
-          <div class="availability-head-copy">
-            <div class="my-availability-title">My availability</div>
+          <div>
+            <div style="font-size:14px;font-weight:800">My availability</div>
             <div class="legend legend-inline">
               <span><i class="sw" style="background:var(--green)"></i>Available</span>
               <span><i class="sw" style="background:var(--violet)"></i>Unavailable</span>
             </div>
-            <div id="availabilityMeta" class="muted" style="font-size:11px"></div>
+            <div id="availabilityMeta" class="muted" style="font-size:11px;margin-top:2px"></div>
           </div>
           <div class="row">
             <select id="workspacePerson"></select>
@@ -310,14 +277,11 @@
         </div>
       </section>
 
-      <aside class="card common-card">
+      <aside class="card">
         <div class="panel-head">
-          <div class="common-card-head">
-            <svg class="common-card-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-              <path d="M20,6a9.9355,9.9355,0,0,0-4,.8418A9.999,9.999,0,1,0,16,25.16,9.998,9.998,0,1,0,20,6ZM12,24A8,8,0,1,1,13.7573,8.2017a9.9734,9.9734,0,0,0,0,15.5986A7.9919,7.9919,0,0,1,12,24Zm8,0a7.9919,7.9919,0,0,1-1.7573-.2,9.9734,9.9734,0,0,0,0-15.5986A7.9972,7.9972,0,1,1,20,24Z"/>
-            </svg>
-            <div class="common-card-title">First 3 common dates</div>
-            <div class="common-card-sub">Earliest upcoming dates where everyone is available</div>
+          <div>
+            <div style="font-size:14px;font-weight:800">Next 3 common dates</div>
+            <div class="muted" style="font-size:11px;margin-top:2px">Earliest dates where everyone is available</div>
           </div>
         </div>
         <div id="commonList" class="common"></div>
@@ -330,29 +294,10 @@
 
   <div class="footer-shell">
     <footer id="appFooter" class="app-footer hidden">
-      <div class="retention-note">Meeting data is automatically deleted the day after the meeting window ends.</div>
-      <div class="feedback-panel" id="feedbackPanel">
-        <div class="feedback-head">
-          <div>
-            <div class="feedback-title">Feedback &amp; questions</div>
-            <div class="feedback-sub">Public conversation. No account or email required.</div>
-          </div>
-        </div>
-        <div id="feedbackList" class="feedback-list">
-          <div class="feedback-empty">Loading conversation…</div>
-        </div>
-        <div class="feedback-form">
-          <div class="feedback-field">
-            <label for="feedbackName">Name</label>
-            <input id="feedbackName" maxlength="40" placeholder="Your name">
-          </div>
-          <div class="feedback-field">
-            <label for="feedbackMessage">Message</label>
-            <textarea id="feedbackMessage" maxlength="1000" placeholder="Question, feedback or suggestion"></textarea>
-          </div>
-          <button id="feedbackSend" class="feedback-send" type="button">Post</button>
-        </div>
-        <div id="feedbackStatus" class="feedback-status"></div>
+      <div>
+        <strong>Feedback &amp; questions:</strong>
+        <a href="https://github.com/emaksimo/team_scheduler/issues" target="_blank" rel="noopener noreferrer">Leave feedback or a question here</a>.
+        This public discussion space lets everyone see existing questions, suggestions and replies.
       </div>
       <div class="privacy-line">
         Privacy by design: the app does not ask for or intentionally store confidential information. No advertising cookies or tracking cookies are used.
@@ -378,9 +323,8 @@
       btn.setAttribute("aria-label", open ? "Show feedback and questions" : "Hide feedback and questions");
     });
     appFooter.classList.toggle("hidden", open);
-    if(!open && typeof loadFeedback === "function") loadFeedback();
   }));
 </script>
-<script src="app.js?v=20260903-7"></script>
+<script src="app.js?v=20260903-5"></script>
 </body>
 </html>
