@@ -207,6 +207,7 @@ function renderEntry(showMeetingList=true){
 
 function selectProject(name,initialized,updateUrl=true){
   setWelcomeVisible(false);
+  const entryFlow=$("entryFlow"); if(entryFlow) entryFlow.classList.add("pin-mode");
   selectedProject=name;
   selectedPerson="";
   project=null;
@@ -223,7 +224,6 @@ function selectProject(name,initialized,updateUrl=true){
   // Password is deliberately never restored or auto-submitted.
   // A direct meeting link still always requires the PIN.
   $("projectPin").value="";
-  $("pinTitle").textContent=initialized?"Enter meeting PIN":"Set meeting PIN";
   $("pinHelp").textContent=initialized?"Enter the 4-digit PIN for this meeting.":"This meeting is not initialized yet. Choose its 4-digit PIN.";
   $("unlockBtn").textContent="Continue";
   $("unlockBtn").dataset.initialized=initialized?"1":"0";
@@ -268,6 +268,7 @@ function renderPeople(){
 }
 
 function resetEntry(){
+  const entryFlow=$("entryFlow"); if(entryFlow) entryFlow.classList.remove("pin-mode");
   selectedProject="";
   selectedPerson="";
   project=null;
@@ -586,3 +587,104 @@ $("blockAllBtn").onclick=async()=>{for(const d of datesForProject())for(const t 
 $("clearAllBtn").onclick=async()=>{ensurePerson(selectedPerson);project.unavailable[selectedPerson]={};renderAll();await persist()};
 
 loadProjects();
+
+// ----- Public feedback / questions -----
+let feedbackLoaded = false;
+let feedbackLoading = false;
+
+function feedbackStatus(message, error=false){
+  const el=$("feedbackStatus");
+  if(!el)return;
+  el.textContent=message||"";
+  el.style.color=error?"#8b3030":"";
+}
+
+function formatFeedbackDate(value){
+  if(!value)return "";
+  const d=new Date(value);
+  if(Number.isNaN(d.getTime()))return "";
+  return d.toLocaleString(undefined,{year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+}
+
+function renderFeedback(messages){
+  const list=$("feedbackList");
+  if(!list)return;
+  list.innerHTML="";
+  if(!Array.isArray(messages)||!messages.length){
+    const empty=document.createElement("div");
+    empty.className="feedback-empty";
+    empty.textContent="No messages yet. Be the first to leave feedback or ask a question.";
+    list.appendChild(empty);
+    return;
+  }
+  messages.forEach(item=>{
+    const row=document.createElement("div");
+    row.className="feedback-item";
+    const meta=document.createElement("div");
+    meta.className="feedback-meta";
+    const name=document.createElement("span");
+    name.className="feedback-name";
+    name.textContent=item.name||"Anonymous";
+    const time=document.createElement("span");
+    time.className="feedback-time";
+    time.textContent=formatFeedbackDate(item.createdAt);
+    const msg=document.createElement("div");
+    msg.className="feedback-message";
+    msg.textContent=item.message||"";
+    meta.append(name,time);
+    row.append(meta,msg);
+    list.appendChild(row);
+  });
+  list.scrollTop=list.scrollHeight;
+}
+
+async function loadFeedback(force=false){
+  if(feedbackLoading || (feedbackLoaded && !force))return;
+  const list=$("feedbackList");
+  if(!list)return;
+  feedbackLoading=true;
+  try{
+    const r=await fetch(API_URL+"/feedback",{headers:{"Accept":"application/json"}});
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(data.error||`HTTP ${r.status}`);
+    renderFeedback(data.messages||[]);
+    feedbackLoaded=true;
+    feedbackStatus("");
+  }catch(e){
+    renderFeedback([]);
+    feedbackStatus("Feedback is temporarily unavailable. "+e.message,true);
+  }finally{feedbackLoading=false}
+}
+
+async function postFeedback(){
+  const nameEl=$("feedbackName"), messageEl=$("feedbackMessage"), button=$("feedbackSend");
+  if(!nameEl||!messageEl||!button)return;
+  const name=nameEl.value.trim();
+  const message=messageEl.value.trim();
+  if(!name){feedbackStatus("Please enter your name.",true);nameEl.focus();return}
+  if(!message){feedbackStatus("Please write a message.",true);messageEl.focus();return}
+  if(name.length>40||message.length>1000){feedbackStatus("Your message is too long.",true);return}
+  button.disabled=true;
+  feedbackStatus("Posting…");
+  try{
+    const r=await fetch(API_URL+"/feedback",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({name,message})
+    });
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(data.error||`HTTP ${r.status}`);
+    messageEl.value="";
+    feedbackLoaded=false;
+    await loadFeedback(true);
+    feedbackStatus("Posted. Thank you.");
+  }catch(e){feedbackStatus("Could not post: "+e.message,true)}
+  finally{button.disabled=false}
+}
+
+const feedbackSend=$("feedbackSend");
+if(feedbackSend)feedbackSend.onclick=postFeedback;
+const feedbackMessage=$("feedbackMessage");
+if(feedbackMessage)feedbackMessage.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==="Enter")postFeedback();
+});
