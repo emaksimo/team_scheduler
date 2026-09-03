@@ -1,0 +1,22 @@
+Cloudflare changes for feedback message deletion
+
+1. Open Cloudflare > Workers & Pages > team-scheduler-api > Settings > Variables and Secrets.
+2. Add a new Secret (not a plain text variable):
+   Name: FEEDBACK_ADMIN_PIN
+   Value: choose a private strong password/passphrase only you know.
+3. Keep the existing KV binding:
+   Variable name: FEEDBACK
+   KV namespace: team-scheduler-feedback
+4. Open Edit code and replace the Worker code with cloudflare-worker.js from this ZIP.
+5. Deploy.
+6. Test the normal endpoint:
+   https://team-scheduler-api.everloop.workers.dev/feedback
+   It should return {"messages":[...]}
+7. Upload the updated index.html and app.js to GitHub.
+
+How deletion works:
+- Every feedback message displays a trash icon.
+- Clicking it asks for the admin PIN/password.
+- The browser sends that value only to the Worker in the X-Feedback-Admin header.
+- The Worker compares it against the Cloudflare secret FEEDBACK_ADMIN_PIN.
+- The secret is not stored in GitHub or hard-coded in the app.

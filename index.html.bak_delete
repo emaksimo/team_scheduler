@@ -53,13 +53,9 @@
     .feedback-empty{padding:22px 0;color:var(--muted);font-size:12px;text-align:center}
     .feedback-item{padding:12px 0;border-bottom:1px solid #eef1ef}
     .feedback-item:last-child{border-bottom:0}
-    .feedback-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+    .feedback-meta{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
     .feedback-name{font-size:12px;font-weight:800;color:var(--text)}
     .feedback-time{font-size:10px;color:var(--muted)}
-    .feedback-actions{margin-left:auto;display:flex;align-items:center}
-    .feedback-delete{width:32px;height:32px;padding:6px;border:0;background:transparent;color:#8b3030;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;opacity:.9;cursor:pointer;flex:0 0 32px}
-    .feedback-delete:hover{background:#f8eeee;opacity:1}
-    .feedback-delete svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
     .feedback-message{font-size:12px;line-height:1.5;color:#454c48;white-space:pre-wrap;overflow-wrap:anywhere}
     .feedback-form{padding:14px 16px 16px;border-top:1px solid var(--line);display:grid;grid-template-columns:150px 1fr auto;gap:8px;align-items:end}
     .feedback-field{display:flex;flex-direction:column;gap:5px}
@@ -102,9 +98,7 @@
     .panel-head{padding:11px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
     .availability-head-copy{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
     .availability-head-copy>.my-availability-title{font-size:14px;font-weight:800}
-    .availability-head-copy #workspacePerson{margin-top:2px;min-width:160px;color:#5b6f8a;font-weight:700}
-    #saveSettingsBtn{background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8}
-    #saveSettingsBtn:hover{background:#50627b;border-color:#50627b}
+    .availability-head-copy #workspacePerson{margin-top:2px;min-width:160px}
     .availability-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
     .availability-actions .legend-inline{margin:0;font-size:13.5px;padding:0;border:0;gap:12px}
     .availability-actions #blockAllBtn,.availability-actions #clearAllBtn{font-size:13.5px}
@@ -211,13 +205,7 @@
           <div id="selectedProjectBar" class="hidden row" style="justify-content:space-between;padding:4px 0">
             <div><strong id="selectedProjectName" style="font-size:24px;line-height:1.2"></strong></div>
             <div class="row">
-              <button id="copyMeetingLinkBtn" class="workspace-action-btn" type="button" style="padding:6px 9px;font-size:11px" aria-label="Copy meeting link">
-                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <rect x="9" y="9" width="10" height="10" rx="2"></rect>
-                  <path d="M15 9V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
-                </svg>
-                <span>Copy meeting link</span>
-              </button>
+              <button id="copyMeetingLinkBtn" style="padding:6px 9px;font-size:11px">Copy meeting link</button>
               <button id="changeProjectBtn" style="padding:6px 9px;font-size:11px">Change meeting</button>
             </div>
           </div>
@@ -311,7 +299,7 @@
         </div>
 
         <div class="settings-actions">
-          <button id="cancelSettingsBtn">Close</button>
+          <button id="cancelSettingsBtn">Cancel</button>
           <button id="saveSettingsBtn" class="primary">Save settings</button>
         </div>
       </div>
@@ -413,6 +401,6 @@
     if(!open && typeof loadFeedback === "function") loadFeedback();
   }));
 </script>
-<script src="app.js?v=20260903-8"></script>
+<script src="app.js?v=20260903-7"></script>
 </body>
 </html>
