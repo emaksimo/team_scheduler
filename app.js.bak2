@@ -353,7 +353,7 @@ function renderMatrix(){
   head.appendChild(dateHead);
 
   const dayHead=document.createElement("div");
-  dayHead.textContent="ALL DAY";
+  dayHead.textContent="DAY";
   head.appendChild(dayHead);
 
   slots.forEach(t=>{
