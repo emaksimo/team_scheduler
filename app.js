@@ -225,7 +225,7 @@ function selectProject(name,initialized,updateUrl=true){
   $("projectPin").value="";
   $("pinTitle").textContent=initialized?"Enter meeting PIN":"Set meeting PIN";
   $("pinHelp").textContent=initialized?"Enter the 4-digit PIN for this meeting.":"This meeting is not initialized yet. Choose its 4-digit PIN.";
-  $("unlockBtn").textContent=initialized?"Unlock meeting":"Initialize meeting";
+  $("unlockBtn").textContent="Continue";
   $("unlockBtn").dataset.initialized=initialized?"1":"0";
   setTimeout(()=>$("projectPin").focus(),50);
 }
@@ -309,7 +309,18 @@ function dateKey(d){return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.ge
 function fmtDate(d){return d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})}
 function mins(s){const [h,m]=s.split(":").map(Number);return h*60+m}
 function labelTime12(t){const h=Math.floor(t/60),m=t%60,ap=h>=12?"PM":"AM",hh=((h+11)%12)+1;return `${hh}:${pad(m)} ${ap}`}
-function datesForProject(){const out=[],start=parseDate(project.startDate),end=parseDate(project.endDate);for(let d=start;d<=end;d=addDays(d,1))if(project.includeWeekends||!isWeekend(d))out.push(new Date(d));return out}
+function datesForProject(){
+  const out=[];
+  const configuredStart=parseDate(project.startDate);
+  const end=parseDate(project.endDate);
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  const start=configuredStart<today?today:configuredStart;
+  for(let d=new Date(start);d<=end;d=addDays(d,1)){
+    if(project.includeWeekends||!isWeekend(d)) out.push(new Date(d));
+  }
+  return out;
+}
 function slotsForProject(){const out=[],s=mins(project.dayStart),e=mins(project.dayEnd),step=Number(project.slotMinutes);for(let t=s;t+step<=e;t+=step)out.push(t);return out}
 function slotKey(d,t){return `${dateKey(d)}|${t}`}
 function ensurePerson(n){if(!project.unavailable[n])project.unavailable[n]={}}

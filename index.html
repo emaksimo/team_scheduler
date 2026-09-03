@@ -13,7 +13,7 @@
     *{box-sizing:border-box}
     html,body{min-height:100%}
     body{margin:0;background:var(--bg);font-family:Inter,Arial,sans-serif;color:var(--text)}
-    .wrap{max-width:1680px;margin:auto;padding:14px 18px}
+    .wrap{max-width:1920px;width:100%;margin:auto;padding:10px 14px}
     .screen{display:none}.screen.active{display:block}
     .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
     .entry-shell{min-height:calc(100vh - 36px);display:flex;align-items:center;justify-content:center;padding:24px 0}
@@ -36,6 +36,8 @@
     .entry-flow{border-top:1px solid var(--line);padding-top:24px}
     .meeting-start{text-align:center;margin-bottom:34px}
     .meeting-start .primary{font-size:22.5px;font-weight:800;padding:16px 27px;border-radius:7px;background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8;min-width:318px}
+    #unlockBtn{background:#5b6f8a;border-color:#5b6f8a;color:#e2ded8}
+    #unlockBtn:hover{background:#50627b;border-color:#50627b}
     .existing-meeting-open{display:flex;width:318px;max-width:100%;margin:0 auto 12px;gap:8px}.existing-meeting-open input{flex:1;min-width:0;height:44px;padding:11px 13px;font-size:14px}.existing-meeting-open button{height:44px;white-space:nowrap}.existing-meetings{margin-top:0}.existing-meetings-title{text-align:center;font-size:13px;font-weight:400;color:var(--text);margin-bottom:14px}
     .existing-meetings .muted{text-align:center;font-size:12px}
     .footer-shell{max-width:920px;margin:8px auto;text-align:center}.footer-toggle{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;color:var(--text);font-size:13px;line-height:1;padding:4px 0;cursor:pointer;font-weight:400;height:24px}.footer-toggle:hover{background:transparent;text-decoration:underline}.footer-arrow{width:28px;height:18px;display:block;flex:0 0 28px;transform-origin:50% 50%;transition:transform .15s ease}.footer-arrow path{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.footer-toggle[aria-expanded="true"] .footer-arrow{transform:rotate(180deg)}
@@ -43,6 +45,13 @@
     .app-footer a{color:#017e94;font-weight:700;text-decoration:none}.app-footer a:hover{text-decoration:underline}
     .license-line{margin-top:8px;color:#5f6662}.privacy-line{margin-top:8px;color:#5f6662;font-weight:700}.footer-owner{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center}.linkedin-link,.email-link{display:inline-flex;align-items:center;gap:5px;color:#017e94!important}.linkedin-logo{width:18px;height:18px;display:block}.email-icon{width:18px;height:18px;display:block;flex:0 0 18px;stroke:#017e94;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.linkedin-link:hover,.email-link:hover{text-decoration:underline;opacity:.9}
     .footer-note{margin-top:5px;font-size:11px;color:#858b87}
+    .feedback-discussion{max-width:760px;margin:18px auto 8px;padding-top:16px;border-top:1px solid var(--line);text-align:left}
+    .feedback-discussion-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;text-align:center}
+    .feedback-discussion-sub{font-size:11px;color:var(--muted);text-align:center;margin-bottom:14px}
+    .giscus-wrap{min-height:72px}
+    .giscus-setup-note{border:1px dashed var(--line);border-radius:10px;padding:12px 14px;background:#fafbfa;color:var(--muted);font-size:11px;line-height:1.5;text-align:center}
+    .giscus-setup-note a{color:#017e94!important}
+    .giscus,.giscus-frame{width:100%}
     h1,h2,h3{margin:0}
     button,input,select{font:inherit}
     button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 12px;cursor:pointer}
@@ -59,12 +68,24 @@
     .pill{border-radius:999px;font-size:13px}
     .divider{height:1px;background:var(--line);margin:18px 0}
     .step-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-    .workspace-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:12px}
+    .workspace-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:10px;width:100%}
     .workspace-title{font-size:25px;display:inline}
     .identity-badge{display:inline-flex;align-items:center;border-radius:999px;background:var(--violet-soft);color:var(--violet);font-weight:800;font-size:12px;padding:6px 10px;margin-left:8px;vertical-align:2px}
     .workspace-sub{font-size:12px;color:var(--muted);margin-top:5px}
-    .main-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:12px;align-items:start}
+    .main-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:12px;align-items:start;width:100%}
     .panel-head{padding:11px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .availability-head-copy{display:flex;flex-direction:column;gap:10px}
+    .availability-head-copy>.my-availability-title{font-size:14px;font-weight:800}
+    .availability-head-copy .legend-inline{margin:0}
+    .availability-head-copy #availabilityMeta{margin:0!important;line-height:1.5}
+    .common-card .panel-head{padding:16px 14px 14px;align-items:flex-start}
+    .common-card-head{display:flex;flex-direction:column;gap:9px;width:100%}
+    .common-card-icon{width:34px;height:34px;display:block;filter:none}
+    .common-card-icon path{fill:var(--green)}
+    .common-card-title{font-size:25px;font-weight:800;line-height:1.1}
+    .common-card-sub{font-size:12px;line-height:1.55;color:var(--muted)}
+    .common-card .common-table th,.common-card .common-table td{padding-top:12px;padding-bottom:12px;line-height:1.45}
+    .retention-note{margin:0 0 14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:12px;font-weight:700;background:#fafbfa}
     .matrix-wrap{overflow:hidden}
     .matrix{width:100%;min-width:0}
     .matrix-head,.matrix-row{display:grid;grid-template-columns:82px 104px repeat(var(--cols),minmax(0,1fr))}
@@ -97,7 +118,7 @@
 
     .time-head-btn{border:0;background:transparent;color:var(--muted);font-size:9px;font-weight:800;padding:4px 2px;width:100%;border-radius:0;white-space:nowrap}
     .time-head-btn:hover{background:var(--violet-soft);color:var(--violet)}
-    .workspace-screen-fit .panel-head{padding:8px 10px}
+    #workspaceScreen{width:100%}.workspace-screen-fit .panel-head{padding:8px 10px}
     .workspace-screen-fit .legend{padding:6px 10px}
     @media(min-width:981px) and (max-height:900px){
       .workspace-top{margin-bottom:8px}.workspace-title{font-size:22px}.workspace-sub{margin-top:2px}
@@ -154,8 +175,8 @@
             </div>
           </div>
 
-          <div id="selectedProjectBar" class="hidden row" style="justify-content:space-between;background:var(--green-soft);padding:9px 11px;border-radius:10px">
-            <div style="font-size:13px"><span class="muted">Meeting:</span> <strong id="selectedProjectName"></strong></div>
+          <div id="selectedProjectBar" class="hidden row" style="justify-content:space-between;padding:4px 0">
+            <div><strong id="selectedProjectName" style="font-size:24px;line-height:1.2"></strong></div>
             <div class="row">
               <button id="copyMeetingLinkBtn" style="padding:6px 9px;font-size:11px">Copy meeting link</button>
               <button id="changeProjectBtn" style="padding:6px 9px;font-size:11px">Change meeting</button>
@@ -164,8 +185,7 @@
 
           <div id="pinStep" class="hidden">
             <div class="divider"></div>
-            <div class="step-label" style="color:var(--violet)">Meeting access</div>
-            <h2 id="pinTitle" style="margin-top:5px">Enter meeting PIN</h2>
+            <h2 id="pinTitle">Enter meeting PIN</h2>
             <div id="pinHelp" class="muted" style="font-size:13px;margin-top:5px">Enter the 4-digit PIN for this meeting.</div>
             <div class="row" style="margin-top:12px">
               <input id="projectPin" type="password" inputmode="numeric" maxlength="4" placeholder="4-digit PIN" autocomplete="off" style="width:150px">
@@ -255,13 +275,13 @@
     <div class="main-grid">
       <section class="card">
         <div class="panel-head">
-          <div>
-            <div style="font-size:14px;font-weight:800">My availability</div>
+          <div class="availability-head-copy">
+            <div class="my-availability-title">My availability</div>
             <div class="legend legend-inline">
               <span><i class="sw" style="background:var(--green)"></i>Available</span>
               <span><i class="sw" style="background:var(--violet)"></i>Unavailable</span>
             </div>
-            <div id="availabilityMeta" class="muted" style="font-size:11px;margin-top:2px"></div>
+            <div id="availabilityMeta" class="muted" style="font-size:11px"></div>
           </div>
           <div class="row">
             <select id="workspacePerson"></select>
@@ -277,11 +297,14 @@
         </div>
       </section>
 
-      <aside class="card">
+      <aside class="card common-card">
         <div class="panel-head">
-          <div>
-            <div style="font-size:14px;font-weight:800">Next 3 common dates</div>
-            <div class="muted" style="font-size:11px;margin-top:2px">Earliest dates where everyone is available</div>
+          <div class="common-card-head">
+            <svg class="common-card-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+              <path d="M20,6a9.9355,9.9355,0,0,0-4,.8418A9.999,9.999,0,1,0,16,25.16,9.998,9.998,0,1,0,20,6ZM12,24A8,8,0,1,1,13.7573,8.2017a9.9734,9.9734,0,0,0,0,15.5986A7.9919,7.9919,0,0,1,12,24Zm8,0a7.9919,7.9919,0,0,1-1.7573-.2,9.9734,9.9734,0,0,0,0-15.5986A7.9972,7.9972,0,1,1,20,24Z"/>
+            </svg>
+            <div class="common-card-title">Next 3 common dates</div>
+            <div class="common-card-sub">Earliest upcoming dates where everyone is available</div>
           </div>
         </div>
         <div id="commonList" class="common"></div>
@@ -294,10 +317,14 @@
 
   <div class="footer-shell">
     <footer id="appFooter" class="app-footer hidden">
+      <div class="retention-note">Meeting data is automatically deleted the day after the meeting window ends.</div>
       <div>
-        <strong>Feedback &amp; questions:</strong>
-        <a href="https://github.com/emaksimo/team_scheduler/issues" target="_blank" rel="noopener noreferrer">Leave feedback or a question here</a>.
-        This public discussion space lets everyone see existing questions, suggestions and replies.
+        <strong>Feedback &amp; questions:</strong> public comments are powered by giscus and stored directly in GitHub Discussions. Everyone can read the conversation; posting requires a GitHub account.
+      </div>
+      <div class="feedback-discussion">
+        <div class="feedback-discussion-title">Feedback &amp; questions</div>
+        <div class="feedback-discussion-sub">Public discussion for Team Scheduler</div>
+        <div id="giscusContainer" class="giscus-wrap"></div>
       </div>
       <div class="privacy-line">
         Privacy by design: the app does not ask for or intentionally store confidential information. No advertising cookies or tracking cookies are used.
@@ -325,6 +352,54 @@
     appFooter.classList.toggle("hidden", open);
   }));
 </script>
-<script src="app.js?v=20260903-5"></script>
+<script>
+  // giscus stores all feedback in GitHub Discussions.
+  // Discussions must be enabled for emaksimo/team_scheduler and the giscus GitHub App installed.
+  // Paste the Discussion category ID below after completing the one-time setup in GISCUS_SETUP.md.
+  const GISCUS_CONFIG = {
+    repo: "emaksimo/team_scheduler",
+    repoId: "R_kgDOUMI9YQ",
+    category: "General",
+    categoryId: "",
+    term: "Team Scheduler Feedback & Questions"
+  };
+
+  function loadGiscus() {
+    const host = document.getElementById("giscusContainer");
+    if (!host || host.dataset.loaded === "1") return;
+    host.dataset.loaded = "1";
+
+    if (!GISCUS_CONFIG.categoryId) {
+      host.innerHTML = `<div class="giscus-setup-note">GitHub Discussions is not enabled for this repository yet. The feedback component is integrated, but needs one-time activation. See <strong>GISCUS_SETUP.md</strong> in the project.</div>`;
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    script.setAttribute("data-repo", GISCUS_CONFIG.repo);
+    script.setAttribute("data-repo-id", GISCUS_CONFIG.repoId);
+    script.setAttribute("data-category", GISCUS_CONFIG.category);
+    script.setAttribute("data-category-id", GISCUS_CONFIG.categoryId);
+    script.setAttribute("data-mapping", "specific");
+    script.setAttribute("data-term", GISCUS_CONFIG.term);
+    script.setAttribute("data-strict", "1");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", "light");
+    script.setAttribute("data-lang", "en");
+    host.appendChild(script);
+  }
+
+  // Load the discussion only when the expandable information area is opened.
+  document.querySelectorAll(".footer-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.getAttribute("aria-expanded") === "true") loadGiscus();
+    });
+  });
+</script>
+<script src="app.js?v=20260903-7"></script>
 </body>
 </html>
