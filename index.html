@@ -45,13 +45,9 @@
     .app-footer a{color:#017e94;font-weight:700;text-decoration:none}.app-footer a:hover{text-decoration:underline}
     .license-line{margin-top:8px;color:#5f6662}.privacy-line{margin-top:8px;color:#5f6662;font-weight:700}.footer-owner{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center}.linkedin-link,.email-link{display:inline-flex;align-items:center;gap:5px;color:#017e94!important}.linkedin-logo{width:18px;height:18px;display:block}.email-icon{width:18px;height:18px;display:block;flex:0 0 18px;stroke:#017e94;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.linkedin-link:hover,.email-link:hover{text-decoration:underline;opacity:.9}
     .footer-note{margin-top:5px;font-size:11px;color:#858b87}
-    .feedback-discussion{max-width:760px;margin:18px auto 8px;padding-top:16px;border-top:1px solid var(--line);text-align:left}
-    .feedback-discussion-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;text-align:center}
-    .feedback-discussion-sub{font-size:11px;color:var(--muted);text-align:center;margin-bottom:14px}
-    .giscus-wrap{min-height:72px}
-    .giscus-setup-note{border:1px dashed var(--line);border-radius:10px;padding:12px 14px;background:#fafbfa;color:var(--muted);font-size:11px;line-height:1.5;text-align:center}
-    .giscus-setup-note a{color:#017e94!important}
+    .giscus-wrap{max-width:860px;margin:18px auto 0;text-align:left}
     .giscus,.giscus-frame{width:100%}
+    .giscus-note{margin-top:8px;font-size:11px;color:var(--muted);text-align:center}
     h1,h2,h3{margin:0}
     button,input,select{font:inherit}
     button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 12px;cursor:pointer}
@@ -319,13 +315,10 @@
     <footer id="appFooter" class="app-footer hidden">
       <div class="retention-note">Meeting data is automatically deleted the day after the meeting window ends.</div>
       <div>
-        <strong>Feedback &amp; questions:</strong> public comments are powered by giscus and stored directly in GitHub Discussions. Everyone can read the conversation; posting requires a GitHub account.
+        <strong>Feedback &amp; questions:</strong> everyone can read the public conversation below. Posting a message uses GitHub Discussions.
       </div>
-      <div class="feedback-discussion">
-        <div class="feedback-discussion-title">Feedback &amp; questions</div>
-        <div class="feedback-discussion-sub">Public discussion for Team Scheduler</div>
-        <div id="giscusContainer" class="giscus-wrap"></div>
-      </div>
+      <div id="giscusContainer" class="giscus-wrap"></div>
+      <div class="giscus-note">Messages are stored in the <a href="https://github.com/emaksimo/team_scheduler/discussions" target="_blank" rel="noopener noreferrer">Team Scheduler GitHub Discussions</a>.</div>
       <div class="privacy-line">
         Privacy by design: the app does not ask for or intentionally store confidential information. No advertising cookies or tracking cookies are used.
       </div>
@@ -343,6 +336,37 @@
 <script>
   const footerToggles = document.querySelectorAll(".footer-toggle");
   const appFooter = document.getElementById("appFooter");
+
+  const GISCUS_CONFIG = {
+    repo: "emaksimo/team_scheduler",
+    repoId: "R_kgDOUMI9YQ",
+    category: "General",
+    term: "Feedback & Questions"
+  };
+
+  function loadGiscus(){
+    const host=document.getElementById("giscusContainer");
+    if(!host || host.dataset.loaded==="1") return;
+    host.dataset.loaded="1";
+    const script=document.createElement("script");
+    script.src="https://giscus.app/client.js";
+    script.async=true;
+    script.crossOrigin="anonymous";
+    script.setAttribute("data-repo",GISCUS_CONFIG.repo);
+    script.setAttribute("data-repo-id",GISCUS_CONFIG.repoId);
+    script.setAttribute("data-category",GISCUS_CONFIG.category);
+    script.setAttribute("data-mapping","specific");
+    script.setAttribute("data-term",GISCUS_CONFIG.term);
+    script.setAttribute("data-strict","1");
+    script.setAttribute("data-reactions-enabled","1");
+    script.setAttribute("data-emit-metadata","0");
+    script.setAttribute("data-input-position","top");
+    script.setAttribute("data-theme","light");
+    script.setAttribute("data-lang","en");
+    script.setAttribute("data-loading","lazy");
+    host.appendChild(script);
+  }
+
   footerToggles.forEach(toggle => toggle.addEventListener("click", () => {
     const open = toggle.getAttribute("aria-expanded") === "true";
     footerToggles.forEach(btn => {
@@ -350,56 +374,9 @@
       btn.setAttribute("aria-label", open ? "Show feedback and questions" : "Hide feedback and questions");
     });
     appFooter.classList.toggle("hidden", open);
+    if(!open) loadGiscus();
   }));
 </script>
-<script>
-  // giscus stores all feedback in GitHub Discussions.
-  // Discussions must be enabled for emaksimo/team_scheduler and the giscus GitHub App installed.
-  // Paste the Discussion category ID below after completing the one-time setup in GISCUS_SETUP.md.
-  const GISCUS_CONFIG = {
-    repo: "emaksimo/team_scheduler",
-    repoId: "R_kgDOUMI9YQ",
-    category: "General",
-    categoryId: "",
-    term: "Team Scheduler Feedback & Questions"
-  };
-
-  function loadGiscus() {
-    const host = document.getElementById("giscusContainer");
-    if (!host || host.dataset.loaded === "1") return;
-    host.dataset.loaded = "1";
-
-    if (!GISCUS_CONFIG.categoryId) {
-      host.innerHTML = `<div class="giscus-setup-note">GitHub Discussions is not enabled for this repository yet. The feedback component is integrated, but needs one-time activation. See <strong>GISCUS_SETUP.md</strong> in the project.</div>`;
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://giscus.app/client.js";
-    script.async = true;
-    script.crossOrigin = "anonymous";
-    script.setAttribute("data-repo", GISCUS_CONFIG.repo);
-    script.setAttribute("data-repo-id", GISCUS_CONFIG.repoId);
-    script.setAttribute("data-category", GISCUS_CONFIG.category);
-    script.setAttribute("data-category-id", GISCUS_CONFIG.categoryId);
-    script.setAttribute("data-mapping", "specific");
-    script.setAttribute("data-term", GISCUS_CONFIG.term);
-    script.setAttribute("data-strict", "1");
-    script.setAttribute("data-reactions-enabled", "1");
-    script.setAttribute("data-emit-metadata", "0");
-    script.setAttribute("data-input-position", "top");
-    script.setAttribute("data-theme", "light");
-    script.setAttribute("data-lang", "en");
-    host.appendChild(script);
-  }
-
-  // Load the discussion only when the expandable information area is opened.
-  document.querySelectorAll(".footer-toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (btn.getAttribute("aria-expanded") === "true") loadGiscus();
-    });
-  });
-</script>
-<script src="app.js?v=20260903-7"></script>
+<script src="app.js?v=20260903-8"></script>
 </body>
 </html>
